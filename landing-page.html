@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Machine Issue Tracking System</title>
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+
+ body {
+ font-family: Arial, sans-serif;
+ line-height: 1.6;
+ }
+
+ nav {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 20px 5%;
+ background-color: #ffffff;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+
+ nav .logo {
+ font-size: 24px;
+ font-weight: bold;
+ color: #333;
+ }
+
+ nav ul {
+ list-style: none;
+ display: flex;
+ gap: 20px;
+ }
+
+ nav ul li {
+ display: inline;
+ }
+
+ nav ul li a {
+ text-decoration: none;
+ color: #333;
+ font-weight: 500;
+ transition: color 0.3s;
+ }
+
+ nav ul li a:hover {
+ color: #007BFF;
+ }
+
+ nav button {
+ padding: 10px 20px;
+ border: none;
+ background-color: #007BFF;
+ color: white;
+ border-radius: 5px;
+ font-weight: bold;
+ cursor: pointer;
+ }
+
+ nav button:hover {
+ background-color: #0056b3;
+ }
+
+ .hero {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 60px 5%;
+ text-align: center;
+ background-color: #f9f9f9;
+ }
+
+ .hero h1 {
+ font-size: 3rem;
+ color: #333;
+ margin-bottom: 20px;
+ }
+
+ .hero p {
+ font-size: 1.2rem;
+ color: #555;
+ margin-bottom: 30px;
+ }
+
+ .hero .cta-buttons {
+ display: flex;
+ gap: 20px;
+ }
+
+ .hero .cta-buttons a {
+ text-decoration: none;
+ padding: 12px 25px;
+ font-size: 1rem;
+ border-radius: 5px;
+ transition: background-color 0.3s, color 0.3s;
+ }
+
+ .hero .cta-buttons .btn-primary {
+ background-color: #007BFF;
+ color: #fff;
+ }
+
+ .hero .cta-buttons .btn-primary:hover {
+ background-color: #0056b3;
+ }
+
+ .hero .cta-buttons .btn-secondary {
+ background-color: #fff;
+ color: #007BFF;
+ border: 2px solid #007BFF;
+ }
+
+ .hero .cta-buttons .btn-secondary:hover {
+ background-color: #007BFF;
+ color: #fff;
+ }
+
+ .hero .media-container {
+ margin-top: 40px;
+ width: 100%;
+ max-width: 700px;
+ height: auto;
+ }
+
+ .hero .media-container video {
+ width: 100%;
+ border-radius: 10px;
+ }
+
+ @media (min-width: 768px) {
+ .hero {
+ flex-direction: row;
+ text-align: left;
+ }
+
+ .hero .content {
+ flex: 1;
+ padding-right: 20px;
+ }
+
+ .hero .media-container {
+ flex: 1;
+ display: flex;
+ justify-content: center;
+ }
+ }
+
+ .stats-section {
+ background-color: #f9f9f9;
+ padding: 60px 5%;
+ }
+
+ .stats-container {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 20px;
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+
+ .stat-card {
+ position: relative;
+ background-color: #fff;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ overflow: hidden;
+ flex: 1 1 300px;
+ text-align: center;
+ transition: transform 0.3s;
+ }
+
+ .stat-card:hover {
+ transform: translateY(-10px);
+ }
+
+ .stat-card::after {
+ content: '';
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: 50%;
+ background-color: #000;
+ transform: translateY(100%);
+ transition: transform 0.3s;
+ z-index: 1;
+ }
+
+ .stat-card:hover::after {
+ transform: translateY(0);
+ }
+
+ .stat-card h3 {
+ font-size: 2rem;
+ color: #333;
+ margin-bottom: 10px;
+ z-index: 2;
+ position: relative;
+ }
+
+ .stat-card p {
+ font-size: 1rem;
+ color: #555;
+ z-index: 2;
+ position: relative;
+ }
+
+ .features-section {
+ padding: 60px 5%;
+ background-color: #ffffff;
+ }
+
+ .features-container {
+ max-width: 1200px;
+ margin: 0 auto;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 30px;
+ justify-content: center;
+ }
+
+ .feature {
+ flex: 1 1 300px;
+ text-align: center;
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ transition: transform 0.3s;
+ }
+
+ .feature:hover {
+ transform: scale(1.05);
+ }
+
+ .feature h3 {
+ font-size: 1.5rem;
+ color: #333;
+ margin-bottom: 15px;
+ }
+
+ .feature p {
+ font-size: 1rem;
+ color: #555;
+ }
+
+ .team-value-section {
+ background-color: #f9f9f9;
+ padding: 60px 5%;
+ }
+
+ .team-value-container {
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+
+ .team-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin-top: 20px;
+ text-align: left;
+ background-color: #fff;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .team-table th, .team-table td {
+ padding: 15px;
+ border: 1px solid #ddd;
+ }
+
+ .team-table th {
+ background-color: #f4f4f4;
+ font-size: 1rem;
+ font-weight: bold;
+ }
+
+ footer {
+ text-align: center;
+ padding: 20px;
+ background-color: #333;
+ color: #fff;
+ }
+
+ @media (max-width: 768px) {
+ nav ul {
+ flex-direction: column;
+ gap: 10px;
+ align-items: center;
+ }
+
+ nav button {
+ margin-top: 10px;
+ }
+
+ .stats-container, .features-container {
+ flex-direction: column;
+ }
+ }
+ .about-section {
+ padding: 40px 5%;
+ background-color: #ffffff;
+ }
+ 
+ .about-container {
+ max-width: 1200px;
+ margin: 0 auto;
+ text-align: center;
+ }
+ 
+ .about-container h2 {
+ font-size: 2rem;
+ color: #333;
+ margin-bottom: 20px;
+ }
+
+ .team-members {
+ display: flex;
+ justify-content: center;
+ gap: 40px;
+ margin: 40px 0;
+ flex-wrap: wrap;
+ }
+ 
+ .member {
+ flex: 1 1 300px;
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ transition: transform 0.3s;
+ background-color: #fff;
+ }
+ 
+ .member:hover {
+ transform: scale(1.05);
+ }
+ 
+ .member-img {
+ border-radius: 50%;
+ margin-bottom: 15px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .member h3 {
+ font-size: 1.5rem;
+ color: #333;
+ margin-bottom: 10px;
+ }
+ 
+ .member p {
+ font-size: 1rem;
+ color: #555;
+ margin-bottom: 15px;
+ }
+ 
+ .linkedin-link {
+ color: #007BFF;
+ text-decoration: none;
+ display: inline-block;
+ padding: 8px 15px;
+ border: 2px solid #007BFF;
+ border-radius: 5px;
+ transition: all 0.3s;
+ }
+ 
+ .linkedin-link:hover {
+ background-color: #007BFF;
+ color: #fff;
+ }
+ 
+ .company-url {
+ margin-top: 40px;
+ padding: 20px;
+ background-color: #f9f9f9;
+ border-radius: 10px;
+ }
+ 
+ .company-url a {
+ color: #007BFF;
+ text-decoration: none;
+ font-weight: 500;
+ transition: color 0.3s;
+ }
+ 
+ .company-url a:hover {
+ color: #0056b3;
+ }
+
+ @media (max-width: 768px) {
+ .member {
+ flex: 0 1 100%;
+ }
+ 
+ .team-members {
+ gap: 20px;
+ }
+ }
+ .contact-section {
+ background-color: #f9f9f9;
+ padding: 60px 5%;
+ }
+
+ .contact-container {
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+
+ .contact-container h2 {
+ font-size: 2rem;
+ color: #333;
+ margin-bottom: 20px;
+ text-align: center;
+ }
+
+ .contact-form {
+ background-color: #fff;
+ padding: 30px;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .form-group {
+ margin-bottom: 20px;
+ }
+
+ .form-group input {
+ width: 100%;
+ padding: 12px;
+ border: 1px solid #ddd;
+ border-radius: 5px;
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+ color: #333;
+ }
+
+ .form-group input:focus {
+ outline: none;
+ border-color: #007BFF;
+ box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+ }
+
+ .submit-btn {
+ width: 100%;
+ padding: 10px 20px;
+ border: none;
+ background-color: #007BFF;
+ color: white;
+ border-radius: 5px;
+ font-weight: bold;
+ cursor: pointer;
+ transition: background-color 0.3s;
+ }
+
+ .submit-btn:hover {
+ background-color: #0056b3;
+ }
+
+ @media (max-width: 768px) {
+ .contact-form {
+ margin: 0 20px;
+ padding: 20px;
+ }
+ }
+
+ </style>
+</head>
+<body>
+ <nav>
+ <div class="logo">MachineTrack</div>
+ <ul>
+ <li><a href="#">Home</a></li>
+ <li><a href="#features-section">Features</a></li>
+ <li><a href="#about-section">About</a></li>
+ <li><a href="#contact-section">Contact</a></li>
+ </ul>
+ <button>Book a Call</button>
+ </nav>
+
+ <section class="hero">
+ <div class="content">
+ <h1>Transform the Way You Manage Machine Issues</h1>
+ <p>Our cutting-edge platform makes tracking, analyzing, and resolving machine issues seamless and efficient for manufacturing teams.</p>
+ <div class="cta-buttons">
+ <a href="#" class="btn-primary">Watch Video</a>
+ <a href="#" class="btn-secondary">Learn More</a>
+ </div>
+ </div>
+ <div class="media-container">
+ <video controls autoplay muted loop>
+ <source src="https://drive.google.com/file/d/13VgdQyRO5y3ED06psm2F3ab3KEUOz9NM/view?usp=sharing" type="video/mp4">
+ Your browser does not support the video tag.
+ </video>
+ </div>
+ </section>
+
+ <section class="stats-section">
+ <div class="stats-container">
+ <div class="stat-card">
+ <h3>40%</h3>
+ <p>Reduction in migration timelines</p>
+ </div>
+ <div class="stat-card">
+ <h3>3x</h3>
+ <p>Improvement in code scalability and feature release speed</p>
+ </div>
+ <div class="stat-card">
+ <h3>50%</h3>
+ <p>Saved in application maintenance and running costs</p>
+ </div>
+ </div>
+ </section>
+
+ <section class="features-section" id="features-section">
+ <div class="features-container">
+ <div class="feature">
+ <h3>Analyze Dependencies</h3>
+ <p>Identify tightly coupled components to ensure a smooth modernization process.</p>
+ </div>
+ <div class="feature">
+ <h3>Prioritize Refactoring</h3>
+ <p>Get actionable insights to accelerate modernization timelines effectively.</p>
+ </div>
+ <div class="feature">
+ <h3>Resolve Seamlessly</h3>
+ <p>Break down high-priority issues and ensure code stability throughout the process.</p>
+ </div>
+ </div>
+ </section>
+
+ <section class="team-value-section">
+ <div class="team-value-container">
+ <h2>Providing Value Across Your Team</h2>
+ <table class="team-table">
+ <thead>
+ <tr>
+ <th>Role</th>
+ <th>Benefits</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Executives</td>
+ <td>We reduce modernization risks by optimizing resource usage and setting clear expectations.</td>
+ </tr>
+ <tr>
+ <td>Managers</td>
+ <td>Track issues seamlessly while integrating with your existing tools like Jira or Linear.</td>
+ </tr>
+ <tr>
+ <td>Engineers</td>
+ <td>Address assigned issues with AI-driven suggestions to enhance efficiency.</td>
+ </tr>
+ <tr>
+ <td>Architects</td>
+ <td>Reduce time spent mapping architecture by identifying critical anti-patterns aligned with goals.</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
+ <!-- Previous sections remain the same until team-value-section -->
+
+ <section class="about-section" id="about-section">
+ <div class="about-container">
+ <h2>About Our Team</h2>
+ <div class="team-members">
+ <div class="member">
+ <img src="/api/placeholder/150/150" alt="John Smith" class="member-img">
+ <h3>John Smith</h3>
+ <p>Co-founder & CEO</p>
+ <a href="https://linkedin.com/in/johnsmith" class="linkedin-link">LinkedIn Profile</a>
+ </div>
+ <div class="member">
+ <img src="/api/placeholder/150/150" alt="Sarah Johnson" class="member-img">
+ <h3>Sarah Johnson</h3>
+ <p>Co-founder & CTO</p>
+ <a href="https://linkedin.com/in/sarahjohnson" class="linkedin-link">LinkedIn Profile</a>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section class="contact-section" id="contact-section">
+ <div class="contact-container">
+ <h2>Contact Us</h2>
+ <form class="contact-form">
+ <div class="form-group">
+ <input type="text" id="name" placeholder="Your Name" required>
+ </div>
+ <div class="form-group">
+ <input type="email" id="email" placeholder="Email Address" required>
+ </div>
+ <div class="form-group">
+ <input type="tel" id="phone" placeholder="Phone Number" required>
+ </div>
+ <button type="submit" class="submit-btn">Send Message</button>
+ </form>
+ </div>
+ </section>
+
+ <footer>
+ &copy; 2025 MachineTrack. All rights reserved.
+ </footer>
+</body>
+</html>
